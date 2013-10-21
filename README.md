@@ -18,11 +18,15 @@ If only two suits are in the hand, add 10 points. If all cards are of the same s
 Sample inputs:
 
 2C 10H AD KH 4S
+
 9H QD QC 3H 3D AC AH
+
 7C 8C AC 4D
 
 Sample outputs:
 
 37
+
 57
+
 40
