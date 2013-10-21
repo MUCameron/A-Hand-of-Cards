@@ -1,0 +1,63 @@
+#Cameron Mims
+def parseline(line):
+    #Parses a line to obtain the words in it. Each word must be a card.
+    words = line.split(' ')
+    cards = [parsecard(word) for word in words]
+    return cards
+
+
+def parsecard(word):
+    #Parses a single card from a separate word.
+    cardvalue = word[0]
+    if cardvalue == '1' and word[1] == '0':
+        cardvalue = '10'
+    cardsuit = word[-1]
+    return (cardvalue, cardsuit)
+
+
+def card_points(card_tuple):
+    #Points for a card. The card is a tuple with value and suit.
+    #Only the value is used to calculate the points.
+    cardvalue = card_tuple[0]
+    if cardvalue == 'A':
+        return 11
+    elif cardvalue in ('J', 'Q', 'K'):
+        return 10
+    else:
+        return int(cardvalue)
+
+
+def all_of_same_suit(cardlist):
+    #Test if all of the hand's cards are of the same suit.
+    setofsuits = set((card[1] for card in cardlist))
+    return len(setofsuits) == 1
+
+
+def two_suits_in_hand(cardlist):
+    #Tests if the hand as only two suits.
+    setofsuits = set((card[1] for card in cardlist))
+    return len(setofsuits) == 2
+
+
+def main():
+    #Main program, reads cards from input in each line and outputs points.
+    while True:
+        try:
+            line = input()
+            if not line:
+                # exit if found a blank line
+                break
+            cards = parseline(line)
+            points = sum((card_points(card) for card in cards))
+            if all_of_same_suit(cards):
+                points += 25
+            elif two_suits_in_hand(cards):
+                points += 10
+            print(points)
+        except EOFError:
+            # end of file, exist from while loop
+            break
+
+
+if __name__ == '__main__':
+    main()
